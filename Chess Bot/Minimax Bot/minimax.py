@@ -2,7 +2,6 @@ import datetime
 import chess
 import chess.svg
 import minimaxLib
-import singleSearch
 
 #update the file board.svg to display current board state.
 def updateBoard():
@@ -57,9 +56,14 @@ while (board.is_checkmate() == False):
         updateBoard()
 
     elif computer == current_player:
-        move = minimaxLib.search(chess.BLACK, 0, board)
-        print("The bot's move is: " + str(move))
-        board.push_uci(move)
+        if (computer == "b"):
+            compColor = chess.BLACK
+        else:
+            compColor = chess.WHITE
+        score_and_move = minimaxLib.search(compColor, board)
+        print("The bot's move is: " + str(score_and_move[1]))
+        board.push_uci(str(score_and_move[1]))
+
         if (current_player == "b"):
             current_player = "w"
         else:
